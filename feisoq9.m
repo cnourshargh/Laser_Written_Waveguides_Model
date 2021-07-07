@@ -1,20 +1,16 @@
 function [shapeq9,dhdrq9,dhdsq9]=feisoq9(r,s)
+%feisoq9.m computes the isoparametric 9 node quadrilateral shape functions
+%at the selected (integration) point in terms of the natural coordinates.
+%
+%Inputs
+%   r - X coordinate value of the selected point   
+%   s - Y coordinate value of the selected point
 
-%------------------------------------------------------------------------
-%  Purpose: 
-%     compute isoparametric four-node quadilateral shape functions
-%     and their derivatves at the selected (integration) point
-%     in terms of the natural coordinate 
-%
-%  Synopsis:
-%     [shapeq4,dhdrq4,dhdsq4]=feisoq4(rvalue,svalue)  
-%
 %  Variable Description:
-%     shapeq4 - shape functions for four-node element
-%     dhdrq4 - derivatives of the shape functions w.r.t. r
-%     dhdsq4 - derivatives of the shape functions w.r.t. s
-%     rvalue - r coordinate value of the selected point   
-%     svalue - s coordinate value of the selected point
+%     shapeq9 - shape functions for nine-node element
+%     dhdrq9 - derivatives of the shape functions w.r.t. r
+%     dhdsq9 - derivatives of the shape functions w.r.t. s
+
 %
 %  Notes:
 %     1st node at (-1,-1), 2nd node at (1,-1)

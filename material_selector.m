@@ -3,7 +3,7 @@ function [stiffness, photoelastic, refractive_index] = material_selector(opt,rot
 %indx matrices required for the calculation of the refractive index change.
 %Built in are some salient cuts of lithium niobate, and options for user
 %defined orientations of lithium niobate and sapphire. More materials can
-%be added by putting the (unrotated) matrices in the 'Defining material
+%be added by putting the (unrotated) matrices in the 'Define material
 %properties' section and adding an option for them to be called in the
 %'Select Material' section.
 %
@@ -11,9 +11,9 @@ function [stiffness, photoelastic, refractive_index] = material_selector(opt,rot
 %   opt = option from material library
 %   rotation = vector describing matrix rotation, of form [theta, phi, alpha].
 %               For any arbitrary cut options, this must be defined.        
-%   theta = rotation of material matrices about the x axis
-%   phi = rotation of material matrices about the y axis
-%   alpha = rotation of material matrices about the z axis
+%       theta = rotation of material matrices about the x axis
+%       phi = rotation of material matrices about the y axis
+%       alpha = rotation of material matrices about the z axis
 %
 %Outputs
 %   Stiffness = 3x3 matrix describing material stifness under plane strain
@@ -30,7 +30,7 @@ function [stiffness, photoelastic, refractive_index] = material_selector(opt,rot
 %   4 - Sapphire arbitrary cut
 
 %--------------------------------
-%  Defining material properties
+%  Define material properties
 %--------------------------------
 
 LiNbO3_stiffness = [0.2030  0.0573  0.0752  0.0085  0  0;
@@ -83,7 +83,7 @@ Sapphire_index = [1.7601  0  0;
 
               
 %--------------------------------
-%  Selecting Material
+%  Select Material
 %--------------------------------
 
 if opt == 1                 %given option 1 - Lithium Niobate, x cut, horizontal z, y out of plane             
