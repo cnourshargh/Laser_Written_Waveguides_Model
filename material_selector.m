@@ -1,19 +1,37 @@
 function [stiffness, photoelastic, refractive_index] = material_selector(opt,rotation)
-%function for generating the stiffness and photoelastic matrix for
-%different materials and crystal orientations
+%material_selector.m creates the stiffness, photoelastic, and refractive
+%indx matrices required for the calculation of the refractive index change.
+%Built in are some salient cuts of lithium niobate, and options for user
+%defined orientations of lithium niobate and sapphire. More materials can
+%be added by putting the (unrotated) matrices in the 'Defining material
+%properties' section and adding an option for them to be called in the
+%'Select Material' section.
+%
+%Inputs
+%   opt = option from material library
+%   rotation = vector describing matrix rotation, of form [theta, phi, alpha].
+%               For any arbitrary cut options, this must be defined.        
+%   theta = rotation of material matrices about the x axis
+%   phi = rotation of material matrices about the y axis
+%   alpha = rotation of material matrices about the z axis
+%
+%Outputs
+%   Stiffness = 3x3 matrix describing material stifness under plane strain
+%                   conditions
+%   photoelastic = 3x3 matrix of pgotoelastic coefficients relevant to the
+%                   material orientation being considered
+%   refracive index = refractive index matrix, alligned with the
+%                       orientation of the material
+%
+%Preprogrammed Options
+%   1 - Lithium Niobate, x cut, horizontal z, y out of plane
+%   2 - Lithium Niobate, x cut, vertical z, y out of plane
+%   3 - Lithium Niobate arbitrary cut
+%   4 - Sapphire arbitrary cut
 
-%opt        - option from material library
-%rotation   - vector describing matrix rotation
-%theta      - rotation of material matrices about the x axis
-%phi        - rotation of material matrices about the y axis
-%alpha        - rotation of material matrices about the z axis
-
-%options are as follows
-%1 - Lithium Niobate, x cut, horizontal z, y out of plane
-%2 - Lithium Niobate, x cut, vertical z, y out of plane
-%3 - Lithium Niobate arbitrary cut
-%4 - Sapphire arbitrary cut
-
+%--------------------------------
+%  Defining material properties
+%--------------------------------
 
 LiNbO3_stiffness = [0.2030  0.0573  0.0752  0.0085  0  0;
                     0.0573  0.2030  0.0752  -0.0085  0  0;
@@ -63,19 +81,31 @@ Sapphire_index = [1.7601  0  0;
               %refractive index matrix for sapphire, at 800nm
               %taken from https://refractiveindex.info/?shelf=main&book=Al2O3&page=Malitson-o
 
-if opt == 1
+              
+%--------------------------------
+%  Selecting Material
+%--------------------------------
+
+if opt == 1                 %given option 1 - Lithium Niobate, x cut, horizontal z, y out of plane             
     
-    rotation = [90,90,0];
+    rotation = [90,90,0];   %rotation is predefined
     
     stiffness_int = tensor_rotator(LiNbO3_stiffness,rotation);
+                            %6x6 stiffness matrix is rotated into lab frame
     
     stiffness = stiffness_int([1,2,6],[1,2,6]);
+                            %relevant values for plane strain assumption
+                            %are identified
 
     phot_int = tensor_rotator(LiNbO3_photoelastic,rotation);
+                            %6x6 photoelastic matrix is rotated into lab frame
     photoelastic = phot_int([1,2,6],[1,2,6]);
+                            %relevant values for plane strain assumption
+                            %are identified
     
     refractive_index = matrix_rotator(LiNbO3_index,rotation);
-    
+                            %3x3 refracive index matrix is rotated into lab
+                            %frame
     
 elseif opt==2
     
