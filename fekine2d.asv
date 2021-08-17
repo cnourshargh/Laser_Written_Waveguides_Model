@@ -1,6 +1,6 @@
 function [kinmtx2]=fekine2d(nnel,dhdx,dhdy)
 % fekine2d.m determines the coefficients of the kinemtaic equation relating the strans and
-% displacemts for the current element.
+% displacemts.
 %
 %Inputs
 %   nnel - number of nodes per element
@@ -8,8 +8,7 @@ function [kinmtx2]=fekine2d(nnel,dhdx,dhdy)
 %   dhdy - derivatives of shape functions with respect to y
 %
 %Outputs
-%   kinmtx2 - coefficients for the kinematic equation for the current
-%               element
+%   kinmtx2 - coeffiscients 
 %
  for i=1:nnel
  i1=(i-1)*2+1;  
